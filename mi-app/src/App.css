@@ -1,0 +1,50 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.main-content {
+  display: flex;
+} 
+
+header {
+  background-color: #2f64a3;
+  color: white;
+  padding: 1rem;
+  text-align: center;
+}
+
+.sidebar {
+  background-color: #f6eedf;
+  width: 200px;
+  padding: 1rem;
+}
+
+.profile {
+  background-color: #f6eedf;
+  width: 200px;
+  padding: 1rem;
+  text-align: center;
+}
+
+.table-container {
+  flex: 1;
+  padding: 1rem;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #f2f2f2;
+}
+
+th, td {
+  border: 1px solid #ccc;
+  padding: 0.5rem;
+  text-align: center;
+}
