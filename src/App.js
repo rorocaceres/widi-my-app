@@ -3,34 +3,31 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css';
 
-// 🔒 Por ahora comentamos estos para probar
-// import Sidebar from './componentes/Sidebar';
-// import Header from './componentes/Header';
-// import Profile from './componentes/Profile';
-// import ScheduleTable from './componentes/ScheduleTable';
-// import TablaHorarios from './componentes/TablaHorarios';
+import Sidebar from './componentes/Sidebar';
+import Header from './componentes/Header';
+import Profile from './componentes/Profile';
+import ScheduleTable from './componentes/ScheduleTable';
+import TablaHorarios from './componentes/TablaHorarios'; // Tu componente
 
 function App() {
   return (
     <Router>
       <div className="app-container">
-        {/* <Header /> */}
+        <Header />
         <div className="main-content">
-          {/* <Sidebar /> */}
+          <Sidebar />
 
           <Routes>
             <Route
               path="/"
               element={
-                <div>
-                  <h1>¡Hola mundo desde React!</h1>
-                  <p>Si ves esto, el router y el renderizado funcionan.</p>
-                </div>
+                <>
+                  <ScheduleTable />
+                  <Profile />
+                </>
               }
             />
-
-            {/* Ruta comentada temporalmente */}
-            {/* <Route
+            <Route
               path="/profesores"
               element={
                 <div className="content">
@@ -54,7 +51,7 @@ function App() {
                   </div>
                 </div>
               }
-            /> */}
+            />
           </Routes>
         </div>
       </div>
