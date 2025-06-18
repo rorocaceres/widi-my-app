@@ -1,11 +1,11 @@
-import React from 'react';
+import React from 'react'; //Esto es mio Ange/Roro de acá
 import './App.css';
 import Header from './componentes/Header';
 import Sidebar from './componentes/Sidebar';
 import Profile from './componentes/Profile';
 import ScheduleTable from './componentes/ScheduleTable';
 
-function App() {
+function App() { 
   return (
     <div className="app-container">
       <Header />
@@ -19,3 +19,4 @@ function App() {
 }
 
 export default App;
+//hasta acá
