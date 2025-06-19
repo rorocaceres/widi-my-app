@@ -61,11 +61,6 @@ const horariosTarde = [
       <div className="min-h-screen bg-[#f9f4ed] flex">
         {/* Sidebar */}
         <aside className="w-1/5 bg-[#d9d3c7] p-4 text-[#1F2544]">
-          <img
-            src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Coat_of_arms_of_Argentina.svg/2048px-Coat_of_arms_of_Argentina.svg.png"
-            alt="Escudo"
-            className="w-16 h-16 mx-auto mb-6"
-          />
           <nav className="space-y-4">
             <p className="cursor-pointer">Inicio</p>
             <p className="cursor-pointer">Profesores</p>
