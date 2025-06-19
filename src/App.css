@@ -1,7 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
 body {
   margin: 0;
-  font-family: Arial, sans-serif;
+  font-family: 'Poppins', sans-serif;
 }
+
 
 .app-container {
   display: flex;
@@ -17,6 +20,7 @@ header {
   color: white;
   padding: 1rem;
   text-align: center;
+  font-family: 'Poppins', sans-serif;
 }
 
 .sidebar {
