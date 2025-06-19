@@ -3,17 +3,20 @@
 body {
   margin: 0;
   font-family: 'Poppins', sans-serif;
+  background-color: #fff9f9; /* ← nuevo fondo */
 }
-
 
 .app-container {
   display: flex;
   flex-direction: column;
+  min-height: 100vh;
 }
 
 .main-content {
   display: flex;
+  flex: 1;
 }
+
 
 header {
   background-color: #2f64a3;
@@ -30,11 +33,37 @@ header {
 }
 
 .profile {
-  background-color: #f6eedf;
-  width: 200px;
+  background: #fff4f0;
   padding: 1rem;
+  border-radius: 12px;
   text-align: center;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
 }
+
+.profile img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 0.5rem;
+}
+
+button.logout {
+  background: #e7b8b3;
+  color: white;
+  padding: 10px 18px;
+  border: none;
+  border-radius: 10px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.2s;
+}
+
+button.logout:hover {
+  background: #c08884;
+  transform: scale(1.05);
+}
+
 
 .table-container {
   flex: 1;
