@@ -1,5 +1,5 @@
 .header {
-  background: rgba(41, 95, 155, 0.95);
+  background: #1e3a8a; /* Azul profundo */
   padding: 20px;
   text-align: center;
   color: #fff;
@@ -8,11 +8,24 @@
   top: 0;
   z-index: 999;
   box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-  border-bottom: 4px solid #e7b8b3;
+  border-bottom: 4px solid #e7b8b3; /* Rosa elegante que ya usabas */
+  animation: slideDown 0.7s ease-in-out;
 }
 
 .header h1 {
   margin: 0;
-  font-size: 1.8rem;
+  font-size: 1.9rem;
   letter-spacing: 1px;
+}
+
+/* Animación al cargar */
+@keyframes slideDown {
+  from {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
