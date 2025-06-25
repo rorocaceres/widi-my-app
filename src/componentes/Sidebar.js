@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'; // Importar Link
 
 function Sidebar() {
   return (
-    <div className="sidebar">
+    <div className="sidebar fade-in">
       <Link to="/" className="sidebar-link">🏠 Inicio</Link>
       <Link to="/profesores" className="sidebar-link">👩‍🏫 Profesores</Link>
       <p>📚 Cursos</p>
