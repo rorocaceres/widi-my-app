@@ -5,8 +5,8 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css';
 
 import Sidebar from './componentes/Sidebar';
-import header from './componentes/header';
-import profile from './componentes/profile';
+import Header from './componentes/Header';
+import Profile from './componentes/Profile';
 import ScheduleTable from './componentes/ScheduleTable'; 
 import TablaHorarios from './componentes/TablaHorarios';
 
