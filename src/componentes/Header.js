@@ -1,10 +1,10 @@
 import React from 'react';
-import '../App.css';
+import './Header.css';
 
 function Header() {
   return (
     <header className="header">
-      <h1>HORARIO DE PROFESORES EPET 20</h1>
+      <h1>HORARIO DE PROFESORES E.P.E.T N°20</h1>
     </header>
   );
 }
