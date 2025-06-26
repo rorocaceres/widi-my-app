@@ -1,0 +1,35 @@
+.table-container {
+  padding: 1.5rem;
+  overflow-x: auto; /* Para scroll horizontal si se necesita */
+}
+
+.horario-tabla {
+  width: 100%;
+  border-collapse: collapse;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.05);
+  background: #fff;
+}
+
+.horario-tabla caption {
+  padding: 1rem 0;
+  font-weight: 600;
+  font-size: 1.25rem;
+  color: #333;
+  text-align: center;
+}
+
+.horario-tabla th {
+  background-color: #fbdcdc;
+  color: #333;
+  font-weight: 600;
+  padding: 1rem;
+  text-align: center;
+}
+
+.horario-tabla td {
+  padding: 1rem;
+  border-top: 1px solid #f0eaea;
+  text-align: center;
+}
