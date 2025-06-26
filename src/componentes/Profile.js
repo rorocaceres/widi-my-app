@@ -1,12 +1,18 @@
 import React from 'react';
-import '../App.css'; // Si estás usando las clases de App.css
+import './Profile.css';
 
-function Profile() {
+function Profile({ onLogout }) {
   return (
-    <div className="profile">
-      <img src="https://i.pravatar.cc/150?img=3" alt="Foto de perfil" />
-      <h3>Nombre de Usuario</h3>
-      <button className="logout">Cerrar sesión</button>
+    <div className="profile-card fade-in">
+      <img
+        src="https://i.imgur.com/5cKXnEl.png"
+        alt="Perfil"
+        className="profile-img"
+      />
+      <h3 className="profile-name">Ángela</h3>
+      <button className="logout-btn" onClick={onLogout}>
+        Cerrar sesión
+      </button>
     </div>
   );
 }
