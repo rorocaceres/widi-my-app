@@ -1,5 +1,5 @@
 .sidebar {
-  background: #fdf3ec; /* Color base de fondo: lo mantenemos */
+  background: #fdf3ec;
   padding: 2rem 1rem;
   height: 100vh;
   box-shadow: 2px 0 12px rgba(0, 0, 0, 0.05);
@@ -9,11 +9,11 @@
   font-family: 'Poppins', sans-serif;
 }
 
-.sidebar a {
+.sidebar-link {
   display: flex;
   align-items: center;
-  gap: 8px; /* separa el icono del texto */
-  background-color: #1e3a8a; /* azul moderno */
+  gap: 8px;
+  background-color: #1e3a8a;
   color: white;
   font-weight: 500;
   text-decoration: none;
@@ -24,11 +24,12 @@
   cursor: pointer;
 }
 
-.sidebar a:hover {
-  background-color: #3b82f6; /* azul más clarito al pasar el mouse */
+.sidebar-link:hover {
+  background-color: #3b82f6;
   transform: translateY(-2px) scale(1.03);
   box-shadow: 0 8px 16px rgba(59, 130, 246, 0.4);
-} 
+}
+
 .fade-in {
   animation: fadeIn 0.8s ease-in;
 }
@@ -37,29 +38,3 @@
   from { opacity: 0; transform: translateY(10px); }
   to { opacity: 1; transform: translateY(0); }
 }
-
-
-/*.sidebar {
-  background: #fdf3ec;
-  padding: 2rem 1rem;
-  height: 100vh;
-  box-shadow: 2px 0 12px rgba(0, 0, 0, 0.05);
-  display: flex;
-  flex-direction: column;
-  gap: 1.2rem;
-}
-
-.sidebar a {
-  display: flex;
-  align-items: center;
-  color: #5a3b3b;
-  font-weight: 500;
-  text-decoration: none;
-  padding: 8px 12px;
-  border-radius: 8px;
-  transition: background 0.3s;
-}
-
-.sidebar a:hover {
-  background: #f4dede;
-}*/
