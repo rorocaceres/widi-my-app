@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/widi-my-app/static/css/main.7db50142.css",
+    "main.js": "/widi-my-app/static/js/main.c22ca8e3.js",
+    "index.html": "/widi-my-app/index.html",
+    "main.7db50142.css.map": "/widi-my-app/static/css/main.7db50142.css.map",
+    "main.c22ca8e3.js.map": "/widi-my-app/static/js/main.c22ca8e3.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.7db50142.css",
+    "static/js/main.c22ca8e3.js"
+  ]
+}
