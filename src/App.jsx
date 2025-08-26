@@ -1,5 +1,81 @@
-// Archivo: App.js mejorado y rediseñado 
-// Archivo: App.js
+import React from "react";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import Sidebar from "./componentes/Sidebar";
+import Login from "./componentes/login";
+import Turnos from "./componentes/Turnos";
+import TablaHorarios from "./componentes/TablaHorarios";
+
+function PrivateRoute({ children }) {
+  const loggedIn = localStorage.getItem("loggedIn");
+  return loggedIn ? children : <Navigate to="/login" />;
+}
+
+export default function App() {
+  return (
+    <Router>
+      <div className="app-container">
+        <Sidebar />
+        <div className="main-content">
+          <Routes>
+            <Route path="/login" element={<Login />} />
+            <Route path="/" element={<PrivateRoute><h1>Bienvenido</h1></PrivateRoute>} />
+            <Route path="/turnos" element={<PrivateRoute><Turnos /></PrivateRoute>} />
+            <Route path="/horarios" element={<PrivateRoute><TablaHorarios /></PrivateRoute>} />
+          </Routes>
+        </div>
+      </div>
+    </Router>
+  );
+}
+
+/*import React, { useState } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+
+// Componentes
+import Header from "./componentes/Header";
+import Sidebar from "./componentes/Sidebar";
+import Profile from "./componentes/Profile";
+import Login from "./componentes/login";
+import TablaHorarios from "./componentes/TablaHorarios";
+import Turnos from "./componentes/Turnos";
+import Inicio from "./componentes/Inicio";
+import Contacto from "./componentes/Contacto";
+
+function App() {
+  const [logueado, setLogueado] = useState(false);
+
+  return (
+    <Router>
+      {logueado ? (
+        <div className="app-shell">
+          <Header onLogout={() => setLogueado(false)} />
+
+          <aside className="sidebar-area">
+            <Sidebar />
+          </aside>
+
+          <main className="main-area">
+            <Routes>
+              <Route path="/" element={<Inicio />} />
+              <Route path="/horarios" element={<TablaHorarios />} />
+              <Route path="/turnos" element={<Turnos />} />
+              <Route path="/contacto" element={<Contacto />} />
+            </Routes>
+          </main>
+
+          <aside className="profile-area">
+            <Profile onLogout={() => setLogueado(false)} />
+          </aside>
+        </div>
+      ) : (
+        <Login onLogin={() => setLogueado(true)} />
+      )}
+    </Router>
+  );
+}
+
+export default App;
+
 
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
@@ -22,15 +98,15 @@ export default function App() {
   return (
     <Router>
       <div className="app-shell">
-        {/* Header */}
+        { Header }
         <Header />
 
-        {/* Sidebar lateral */}
+        { Sidebar lateral }
         <aside className="sidebar-area">
           <Sidebar />
         </aside>
 
-        {/* Área principal de contenido */}
+        { Área principal de contenido }
         <main className="main-area">
           <Routes>
             <Route path="/" element={<Inicio />} />
@@ -42,7 +118,7 @@ export default function App() {
           </Routes>
         </main>
 
-        {/* Perfil lateral derecho */}
+        { Perfil lateral derecho }
         <aside className="profile-area">
           <Profile />
         </aside>
@@ -50,7 +126,7 @@ export default function App() {
     </Router>
   );
 }
-
+/*
 /*
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
