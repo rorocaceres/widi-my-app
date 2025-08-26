@@ -1,12 +1,39 @@
-import React from 'react';
-import './Header.css';
+import React from "react";
+import { useNavigate } from "react-router-dom";
+import logo from "../logo.svg"; 
+import "./Header.css"; // asegurate de tener los estilos
 
-function Header() {
+export default function Header() {
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    navigate("/login"); //  redirige al login
+  };
+
   return (
     <header className="header">
-      <h1>HORARIO DE PROFESORES E.P.E.T N°20</h1>
+      <div className="logo">
+        <img src={logo} alt="Escudo" style={{ width: 32, height: 32 }} />
+      </div>
+      <h1>HORARIO DE PROFESORES EPET 20</h1>
+      <button className="logout-btn" onClick={handleLogout}>
+        Cerrar sesión
+      </button>
     </header>
   );
 }
 
-export default Header;
+/* import React from "react";
+import logo from "../logo.svg"; // cambien  la ruta
+
+export default function Header(){
+  return (
+    <header className="header">
+      <div className="logo">
+        { Si querés, poné tu escudo real en lugar del svg }
+        <img src={logo} alt="Escudo" style={{width:32, height:32}} />
+      </div>
+      <h1>HORARIO DE PROFESORES EPET 20</h1>
+    </header>
+  );
+}/*
