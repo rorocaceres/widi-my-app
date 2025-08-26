@@ -1,33 +1,45 @@
-import React from 'react';               // 1. Importamos React para poder usar JSX y crear componentes
-import HorarioTabla from './HorarioTabla'; // 2. Importamos el componente que muestra la tabla de forma unificada
+import React from "react";
+import "./TablaHorario.css";
 
-function TablaHorarios() {               // 3. Definimos el componente funcional TablaHorarios
-  // 4. Definimos las columnas que aparecerán en el encabezado de la tabla
-  const columnas = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes'];
-
-  // 5. Definimos las filas como un arreglo de arreglos.
-  // Cada fila es un arreglo que representa las celdas en orden, 
-  // y puede contener HTML en texto (por eso usamos tags <br/> y <strong>)
+function TablaHorarios() {
+  const columnas = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes"];
   const filas = [
     [
-      '<strong>18:00</strong><br/>Programación Web<br/>Wiedermann',
-      '', '', '', ''
+      <><strong>18:00</strong><br />Programación Web<br />Wiedermann</>,
+      "", "", "", ""
     ],
     [
-      '<strong>19:30 - 20:50</strong><br/>Ética<br/>Monzano',
-      '', '', '', ''
+      <><strong>19:30 - 20:50</strong><br />Ética<br />Monzano</>,
+      "", "", "", ""
     ],
     [
-      '<strong>21:00 - 22:20</strong><br/>Gestión de Calidad<br/>Zeballos',
-      '', '', '', ''
+      <><strong>21:00 - 22:20</strong><br />Gestión de Calidad<br />Zeballos</>,
+      "", "", "", ""
     ],
   ];
 
-  // 6. Retornamos el componente HorarioTabla, pasando las columnas y filas definidas arriba como props
-  return <HorarioTabla columnas={columnas} filas={filas} />;
+  return (
+    <div className="table-container">
+      <table className="tabla-horarios">
+        <caption>Horario Semanal</caption>
+        <thead>
+          <tr>
+            {columnas.map((col, i) => <th key={i}>{col}</th>)}
+          </tr>
+        </thead>
+        <tbody>
+          {filas.map((fila, i) => (
+            <tr key={i}>
+              {fila.map((celda, j) => <td key={j}>{celda}</td>)}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
 }
 
-export default TablaHorarios;    
+export default TablaHorarios;
 
 // 7. Exportamos el componente para poder usarlo en otras partes de la app
 /*import React from 'react';
