@@ -23,17 +23,4 @@ export default function Header() {
   );
 }
 
-/* import React from "react";
-import logo from "../logo.svg"; // cambien  la ruta
 
-export default function Header(){
-  return (
-    <header className="header">
-      <div className="logo">
-        { Si querés, poné tu escudo real en lugar del svg }
-        <img src={logo} alt="Escudo" style={{width:32, height:32}} />
-      </div>
-      <h1>HORARIO DE PROFESORES EPET 20</h1>
-    </header>
-  );
-}/*
