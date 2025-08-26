@@ -1,5 +1,57 @@
-// Archivo: App.js mejorado y rediseñado
+// Archivo: App.js mejorado y rediseñado 
+// Archivo: App.js
 
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import './App.css';
+
+// Componentes principales
+import Header from './componentes/Header';
+import Sidebar from './componentes/Sidebar';
+import Profile from './componentes/Profile';
+import TablaHorarios from './componentes/TablaHorarios';
+
+// Páginas
+import Inicio from './pages/Inicio';
+import Contacto from './pages/Contacto';
+import Productos from './pages/Productos';
+import Turnos from './pages/Turnos';
+import Login from './pages/Login';
+
+export default function App() {
+  return (
+    <Router>
+      <div className="app-shell">
+        {/* Header */}
+        <Header />
+
+        {/* Sidebar lateral */}
+        <aside className="sidebar-area">
+          <Sidebar />
+        </aside>
+
+        {/* Área principal de contenido */}
+        <main className="main-area">
+          <Routes>
+            <Route path="/" element={<Inicio />} />
+            <Route path="/contacto" element={<Contacto />} />
+            <Route path="/productos" element={<Productos />} />
+            <Route path="/turnos" element={<Turnos />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/horarios" element={<TablaHorarios />} />
+          </Routes>
+        </main>
+
+        {/* Perfil lateral derecho */}
+        <aside className="profile-area">
+          <Profile />
+        </aside>
+      </div>
+    </Router>
+  );
+}
+
+/*
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css';
@@ -39,7 +91,7 @@ export default function App() {
   );
 }
 
-
+/*
 /*import React from "react";
 import Sidebar from "./components/Sidebar";
 import Header from "./components/Header";
