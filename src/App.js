@@ -10,58 +10,88 @@ import Profile from './componentes/Profile';
 import ScheduleTable from './componentes/ScheduleTable'; 
 import TablaHorarios from './componentes/TablaHorarios';
 
-function App() {
+export default function App() {
   return (
     <Router>
-      <div className="app-layout">
+      <div className="app-shell">
         <Header />
-        <div className="app-content">
-          <Sidebar />
-          <main className="main-area">
-            <Routes>
-              <Route
-                path="/"
-                element={
-                  <div className="page-home">
-                    <ScheduleTable />
-                    <Profile />
-                  </div>
-                }
-              />
-              <Route
-                path="/profesores"
-                element={
-                  <div className="page-profesores">
-                    <section className="curso-section">
-                      <div className="curso-selector">
-                        {["1RO 1RA", "1RO 1DA", "2DO 1RA", "3DO 1RA", "4RO 1RA", "6TO 1RA"].map(curso => (
-                          <button key={curso} className="curso-btn">{curso}</button>
-                        ))}
-                      </div>
-                      <div className="curso-info">
-                        <h2>Curso: 1RO 1RA</h2>
-                        <TablaHorarios />
-                      </div>
-                    </section>
 
-                    <aside className="perfil-sidebar">
-                      <img
-                        src="https://cdn-icons-png.flaticon.com/512/847/847969.png"
-                        alt="Angela"
-                        className="perfil-img"
-                      />
-                      <p className="perfil-nombre">Angela</p>
-                      <button className="logout">Cerrar sesión</button>
-                    </aside>
-                  </div>
-                }
-              />
-            </Routes>
-          </main>
-        </div>
+        <aside className="sidebar-area">
+          <Sidebar />
+        </aside>
+
+        <main className="main-area">
+          <Routes>
+            <Route path="/" element={<Inicio />} />
+            <Route path="/contacto" element={<Contacto />} />
+            <Route path="/productos" element={<Productos />} />
+            <Route path="/turnos" element={<Turnos />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/horarios" element={<TablaHorarios />} />
+          </Routes>
+        </main>
+
+        <aside className="profile-area">
+          <Profile />
+        </aside>
       </div>
     </Router>
   );
 }
 
-export default App;
+
+/*import React from "react";
+import Sidebar from "./components/Sidebar";
+import Header from "./components/Header";
+import Profile from "./components/Profile";
+import TablaHorarios from "./components/TablaHorarios";
+import "./App.css";
+
+export default function App() {
+  return (
+    <div className="app-shell">
+      <Header />
+      <aside className="sidebar-area">
+        <Sidebar />
+      </aside>
+      <main className="main-area">
+        <TablaHorarios />
+      </main>
+      <aside className="profile-area">
+        <Profile />
+      </aside>
+    </div>
+  );
+}*/
+
+/*import { Routes, Route } from "react-router-dom";
+import Sidebar from "./componentes/Sidebar";
+import Header from "./componentes/Header";
+import Inicio from "./pages/Inicio";
+import Contacto from "./pages/Contacto";
+import Productos from "./pages/Productos";
+import Turnos from "./componentes/Turnos";
+import Login from "./pages/Login";
+import "./componentes/style.css";
+
+function App() {
+  return (
+    <div className="app-container">
+      <Sidebar />
+      <div className="main-content">
+        <Header />
+        <div className="page-content">
+          <Routes>
+            <Route path="/" element={<Inicio />} />
+            <Route path="/contacto" element={<Contacto />} />
+            <Route path="/productos" element={<Productos />} />
+            <Route path="/turnos" element={<Turnos />} />
+            <Route path="/login" element={<Login />} />
+          </Routes>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default App;*/
