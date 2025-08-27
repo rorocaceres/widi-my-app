@@ -1,10 +1,19 @@
-import React from "react";
+ import React from "react";
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
-import Sidebar from "./componentes/Sidebar";
-import Login from "./componentes/Login";
-import Turnos from "./componentes/Turnos";
-import TablaHorarios from "./componentes/TablaHorarios";
 
+// Componentes
+import Sidebar from "./componentes/Sidebar";
+import Header from "./componentes/Header";
+import Profile from "./componentes/Profile";
+import Login from "./componentes/Login"; 
+import TablaHorarios from "./componentes/TablaHorarios";
+import Turnos from "./componentes/Turnos";
+import Inicio from "./componentes/Inicio"; 
+import Profesores from "./componentes/Profesores";
+import Cursos from "./componentes/Cursos";
+import Contacto from "./componentes/Contacto";
+
+// Ruta privada
 function PrivateRoute({ children }) {
   const loggedIn = localStorage.getItem("loggedIn");
   return loggedIn ? children : <Navigate to="/login" />;
@@ -14,22 +23,43 @@ export default function App() {
   return (
     <Router>
       <Routes>
-        {/* Login sin sidebar */}
+        {/* Login sin layout */}
         <Route path="/login" element={<Login />} />
 
-        {/* Páginas protegidas con sidebar */}
+        {/* Sitio con layout completo */}
         <Route
           path="/*"
           element={
             <PrivateRoute>
-              <div className="app-container">
-                <Sidebar />
-                <div className="main-content">
-                  <Routes>
-                    <Route path="/" element={<h1>Bienvenido</h1>} />
-                    <Route path="/turnos" element={<Turnos />} />
-                    <Route path="/horarios" element={<TablaHorarios />} />
-                  </Routes>
+              <div className="app-layout">
+                {/* Header */}
+                <header className="header">
+                  <Header />
+                </header>
+
+                {/* Contenido principal: sidebar + main + perfil */}
+                <div className="app-content">
+                  {/* Sidebar izquierda */}
+                  <aside className="sidebar">
+                    <Sidebar />
+                  </aside>
+
+                  {/* Contenido central */}
+                  <main className="main-area">
+                    <Routes>
+                      <Route path="/" element={<Inicio />} />
+                      <Route path="/profesores" element={<Profesores />} />
+                      <Route path="/cursos" element={<Cursos />} />
+                      <Route path="/turnos" element={<Turnos />} />
+                      <Route path="/horarios" element={<TablaHorarios />} />
+                      <Route path="/contacto" element={<Contacto />} />
+                    </Routes>
+                  </main>
+
+                  {/* Perfil derecha */}
+                  <aside className="profile">
+                    <Profile />
+                  </aside>
                 </div>
               </div>
             </PrivateRoute>
@@ -40,199 +70,206 @@ export default function App() {
   );
 }
 
-
-/*import React, { useState } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+ /*import React from "react";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 
 // Componentes
-import Header from "./componentes/Header";
 import Sidebar from "./componentes/Sidebar";
+import Header from "./componentes/Header";
 import Profile from "./componentes/Profile";
-import Login from "./componentes/login";
+import Login from "./componentes/Login"; 
 import TablaHorarios from "./componentes/TablaHorarios";
 import Turnos from "./componentes/Turnos";
-import Inicio from "./componentes/Inicio";
+import Inicio from "./componentes/Inicio"; 
+import Profesores from "./componentes/Profesores";
+import Cursos from "./componentes/Cursos";
 import Contacto from "./componentes/Contacto";
 
-function App() {
-  const [logueado, setLogueado] = useState(false);
-
-  return (
-    <Router>
-      {logueado ? (
-        <div className="app-shell">
-          <Header onLogout={() => setLogueado(false)} />
-
-          <aside className="sidebar-area">
-            <Sidebar />
-          </aside>
-
-          <main className="main-area">
-            <Routes>
-              <Route path="/" element={<Inicio />} />
-              <Route path="/horarios" element={<TablaHorarios />} />
-              <Route path="/turnos" element={<Turnos />} />
-              <Route path="/contacto" element={<Contacto />} />
-            </Routes>
-          </main>
-
-          <aside className="profile-area">
-            <Profile onLogout={() => setLogueado(false)} />
-          </aside>
-        </div>
-      ) : (
-        <Login onLogin={() => setLogueado(true)} />
-      )}
-    </Router>
-  );
+// Ruta privada
+function PrivateRoute({ children }) {
+  const loggedIn = localStorage.getItem("loggedIn");
+  return loggedIn ? children : <Navigate to="/login" />;
 }
-
-export default App;
-
-
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import './App.css';
-
-// Componentes principales
-import Header from './componentes/Header';
-import Sidebar from './componentes/Sidebar';
-import Profile from './componentes/Profile';
-import TablaHorarios from './componentes/TablaHorarios';
-
-// Páginas
-import Inicio from './pages/Inicio';
-import Contacto from './pages/Contacto';
-import Productos from './pages/Productos';
-import Turnos from './pages/Turnos';
-import Login from './pages/Login';
 
 export default function App() {
   return (
     <Router>
-      <div className="app-shell">
-        { Header }
-        <Header />
+      <Routes>
+        {/* Login sin layout }
+        <Route path="/login" element={<Login />} />
 
-        { Sidebar lateral }
-        <aside className="sidebar-area">
-          <Sidebar />
-        </aside>
+        {/* Resto del sitio con layout completo }
+        <Route
+          path="/*"
+          element={
+            <PrivateRoute>
+              <div className="app-layout">
+                {/* Header arriba }
+                <header className="header">
+                  <Header />
+                </header>
 
-        { Área principal de contenido }
-        <main className="main-area">
-          <Routes>
-            <Route path="/" element={<Inicio />} />
-            <Route path="/contacto" element={<Contacto />} />
-            <Route path="/productos" element={<Productos />} />
-            <Route path="/turnos" element={<Turnos />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/horarios" element={<TablaHorarios />} />
-          </Routes>
-        </main>
+                {/* Contenido general (sidebar + main + profile) }
+                <div className="app-content">
+                  {/* Sidebar izquierda }
+                  <aside className="sidebar">
+                    <Sidebar />
+                  </aside>
 
-        { Perfil lateral derecho }
-        <aside className="profile-area">
-          <Profile />
-        </aside>
-      </div>
-    </Router>
-  );
-}
-/*
-/*
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import './App.css';
+                  {/* Contenido central }
+                  <main className="main-area">
+                    <Routes>
+                      <Route path="/" element={<Inicio />} />
+                      <Route path="/profesores" element={<Profesores />} />
+                      <Route path="/cursos" element={<Cursos />} />
+                      <Route path="/turnos" element={<Turnos />} />
+                      <Route path="/horarios" element={<TablaHorarios />} />
+                      <Route path="/contacto" element={<Contacto />} />
+                    </Routes>
+                  </main>
 
-import Sidebar from './componentes/Sidebar';
-import Header from './componentes/Header';
-import Profile from './componentes/Profile';
-import ScheduleTable from './componentes/ScheduleTable'; 
-import TablaHorarios from './componentes/TablaHorarios';
-
-export default function App() {
-  return (
-    <Router>
-      <div className="app-shell">
-        <Header />
-
-        <aside className="sidebar-area">
-          <Sidebar />
-        </aside>
-
-        <main className="main-area">
-          <Routes>
-            <Route path="/" element={<Inicio />} />
-            <Route path="/contacto" element={<Contacto />} />
-            <Route path="/productos" element={<Productos />} />
-            <Route path="/turnos" element={<Turnos />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/horarios" element={<TablaHorarios />} />
-          </Routes>
-        </main>
-
-        <aside className="profile-area">
-          <Profile />
-        </aside>
-      </div>
+                  {/* Perfil derecha }
+                  <aside className="profile">
+                    <Profile />
+                  </aside>
+                </div>
+              </div>
+            </PrivateRoute>
+          }
+        />
+      </Routes>
     </Router>
   );
 }
 
-/*
 /*import React from "react";
-import Sidebar from "./components/Sidebar";
-import Header from "./components/Header";
-import Profile from "./components/Profile";
-import TablaHorarios from "./components/TablaHorarios";
-import "./App.css";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 
-export default function App() {
-  return (
-    <div className="app-shell">
-      <Header />
-      <aside className="sidebar-area">
-        <Sidebar />
-      </aside>
-      <main className="main-area">
-        <TablaHorarios />
-      </main>
-      <aside className="profile-area">
-        <Profile />
-      </aside>
-    </div>
-  );
-}*/
-
-/*import { Routes, Route } from "react-router-dom";
+// Componentes
 import Sidebar from "./componentes/Sidebar";
 import Header from "./componentes/Header";
-import Inicio from "./pages/Inicio";
-import Contacto from "./pages/Contacto";
-import Productos from "./pages/Productos";
+import Profile from "./componentes/Profile";
+import Login from "./componentes/LoginTemp"; // renómbralo a Login.jsx cuando corresponda
+import TablaHorarios from "./componentes/TablaHorarios";
 import Turnos from "./componentes/Turnos";
-import Login from "./pages/Login";
-import "./componentes/style.css";
+import Inicio from "./componentes/Inicio"; 
 
-function App() {
+// Ruta privada
+function PrivateRoute({ children }) {
+  const loggedIn = localStorage.getItem("loggedIn");
+  return loggedIn ? children : <Navigate to="/login" />;
+}
+
+export default function App() {
   return (
-    <div className="app-container">
-      <Sidebar />
-      <div className="main-content">
-        <Header />
-        <div className="page-content">
-          <Routes>
-            <Route path="/" element={<Inicio />} />
-            <Route path="/contacto" element={<Contacto />} />
-            <Route path="/productos" element={<Productos />} />
-            <Route path="/turnos" element={<Turnos />} />
-            <Route path="/login" element={<Login />} />
-          </Routes>
-        </div>
-      </div>
-    </div>
+    <Router>
+      <Routes>
+        {/* Login sin layout }
+        <Route path="/login" element={<Login />} />
+
+        {/* Resto del sitio con layout completo }
+        <Route
+          path="/*"
+          element={
+            <PrivateRoute>
+              <div className="app-layout">
+                {/* Header arriba }
+                <header className="header">
+                  <Header />
+                </header>
+
+                {/* Contenido general (sidebar + main + profile) }
+                <div className="app-content">
+                  {/* Sidebar izquierda /}
+                  <aside className="sidebar">
+                    <Sidebar />
+                  </aside>
+
+                  {/* Contenido central }
+                  <main className="main-area">
+                    <Routes>
+                      <Route path="/" element={<Inicio />} />
+                      <Route path="/turnos" element={<Turnos />} />
+                      <Route path="/horarios" element={<TablaHorarios />} />
+                    </Routes>
+                  </main>
+
+                  {/* Perfil derecha }
+                  <aside className="profile">
+                    <Profile />
+                  </aside>
+                </div>
+              </div>
+            </PrivateRoute>
+          }
+        />
+      </Routes>
+    </Router>
   );
 }
 
-export default App;*/
+/*import React from "react";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+
+// Componentes
+import Sidebar from "./componentes/Sidebar";
+import Header from "./componentes/Header";
+import Profile from "./componentes/Profile";
+import Login from "./componentes/LoginTemp"; // cámbialo a Login.jsx cuando renombres
+import TablaHorarios from "./componentes/TablaHorarios";
+import Turnos from "./componentes/Turnos";
+import Inicio from "./componentes/Inicio"; 
+
+// Ruta privada
+function PrivateRoute({ children }) {
+  const loggedIn = localStorage.getItem("loggedIn");
+  return loggedIn ? children : <Navigate to="/login" />;
+}
+
+export default function App() {
+  return (
+    <Router>
+      <Routes>
+        {/* Login sin layout }
+        <Route path="/login" element={<Login />} />
+
+        {/* Resto del sitio con layout completo }
+        <Route
+          path="/*"
+          element={
+            <PrivateRoute>
+              <div className="app-shell">
+                {/* Header arriba }
+                <Header />
+
+                {/* Sidebar izquierda }
+                <aside className="sidebar-area">
+                  <Sidebar />
+                </aside>
+
+                {/* Contenido central }
+                <main className="main-area">
+                  <Routes>
+                    <Route path="/" element={<Inicio />} />
+                    <Route path="/turnos" element={<Turnos />} />
+                    <Route path="/horarios" element={<TablaHorarios />} />
+                  </Routes>
+                </main>
+
+                {/* Perfil derecha }
+                <aside className="profile-area">
+                  <Profile />
+                </aside>
+              </div>
+            </PrivateRoute>
+          }
+        />
+      </Routes>
+    </Router>
+  );
+}
+
+
+
+export default App;
+*/
