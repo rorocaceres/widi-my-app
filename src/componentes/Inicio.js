@@ -1,6 +1,5 @@
 import React from "react";
 import Profile from "./Profile"; // asegura que esté importado
-import "./Inicio.css"; // opcional si quieres estilos propios
 
 export default function Inicio() {
   return (
