@@ -1,4 +1,78 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+/* App global */
+* { box-sizing: border-box; }
+html,body,#root { height: 100%; margin: 0; }
+body { font-family: 'Poppins', sans-serif; background: #fff9f9; }
+
+/* Layout general */
+.app-layout { display: flex; flex-direction: column; height: 100vh; }
+.header { height: 64px; display:flex; align-items:center; padding:0 20px; background:#fff; box-shadow:0 2px 6px rgba(0,0,0,0.06); z-index:2; }
+
+/* Contenedor principal */
+.app-content { flex:1; display:flex; gap:16px; min-height:0; }
+
+/* Sidebar */
+.sidebar {
+  width: 220px;
+  background: #fdf3ec;
+  padding: 20px;
+  overflow-y:auto;
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+
+/* Links del sidebar */
+.sidebar-link {
+  display:block;
+  padding:10px 14px;
+  border-radius:10px;
+  text-decoration:none;
+  color:#fff;
+  background:#1e3a8a;
+  font-weight:600;
+}
+.sidebar-link.active { background:#2563eb; transform:scale(1.02); }
+
+/* Main */
+.main-area {
+  flex:1;
+  padding:20px;
+  overflow:auto;
+  min-width:0; /* evita overflow por tablas */
+}
+
+/* Table container centrada */
+.table-container {
+  max-width:1100px;
+  margin:0 auto;
+  width:100%;
+}
+
+/* Perfil */
+.profile {
+  width:240px;
+  padding:18px;
+  background:#fff4f0;
+  border-radius:12px;
+  box-shadow:0 4px 12px rgba(0,0,0,0.04);
+  align-self:flex-start;
+}
+
+/* Perfil img */
+.profile img { width:80px; height:80px; border-radius:50%; object-fit:cover; display:block; margin:0 auto 8px; }
+
+/* Tabla básica */
+table { width:100%; border-collapse:collapse; background:#fff; border-radius:8px; overflow:hidden; box-shadow:0 6px 20px rgba(0,0,0,0.04); }
+th { background:#fbdcdc; padding:12px; text-align:center; font-weight:600; }
+td { padding:12px; text-align:center; border-top:1px solid #f0eaea; }
+
+/* Responsive */
+@media (max-width:900px){
+  .app-content { flex-direction:column; }
+  .sidebar, .profile { width:100%; }
+  .profile { order:2; }
+}
+/*@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
 
 body {
   margin: 0;
@@ -12,13 +86,13 @@ body {
   height: 100vh;
 }
 
-/* HEADER arriba */
+/* HEADER arriba /
 .header {
   flex-shrink: 0;
   width: 100%;
 }
 
-/* Contenido principal: sidebar + main + perfil */
+/* Contenido principal: sidebar + main + perfil /
 .app-content {
   display: flex;
   flex: 1;
@@ -26,7 +100,7 @@ body {
   gap: 1rem;
 }
 
-/* Sidebar izquierda */
+/* Sidebar izquierda /
 .sidebar {
   background-color: #f6eedf;
   width: 200px;
@@ -35,18 +109,18 @@ body {
   overflow-y: auto;
 }
 
-/* Área central con tabla y perfil */
+/* Área central con tabla y perfil /
 .main-area {
   display: flex;
   flex: 1;
   gap: 1rem;
-  min-width: 0; /* evita overflow */
+  min-width: 0; /* evita overflow /
   padding: 1rem;
 }
 
-/* Contenedor central (tabla) */
+/* Contenedor central (tabla) /
 .table-container {
-  flex: 3; /* más espacio que el perfil */
+  flex: 3; /* más espacio que el perfil /
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -54,7 +128,7 @@ body {
   padding: 1rem;
 }
 
-/* Perfil derecha */
+/* Perfil derecha /
 .profile {
   flex: 1;
   max-width: 250px;
@@ -67,7 +141,7 @@ body {
   align-self: flex-start;
 }
 
-/* Imagen perfil */
+/* Imagen perfil /
 .profile img {
   width: 80px;
   height: 80px;
@@ -76,7 +150,7 @@ body {
   margin-bottom: 0.5rem;
 }
 
-/* Botón logout */
+/* Botón logout /
 .logout {
   background: #1e3a8a;
   color: white;
@@ -96,7 +170,7 @@ body {
   box-shadow: 0 8px 16px rgba(59, 130, 246, 0.4);
 }
 
-/* Tablas */
+/* Tablas /
 table {
   width: 100%;
   border-collapse: collapse;
@@ -119,7 +193,7 @@ td {
   border-top: 1px solid #f0eaea;
 }
 
-/* Responsive: sidebar y perfil abajo */
+/* Responsive: sidebar y perfil abajo /
 @media (max-width: 900px) {
   .app-content {
     flex-direction: column;
@@ -139,4 +213,4 @@ td {
     order: 2;
     margin-top: 1rem;
   }
-}
+}/*
