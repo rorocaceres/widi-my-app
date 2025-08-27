@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import Sidebar from "./componentes/Sidebar";
-import Login from "./componentes/login";
+import Login from "./componentes/Login";
 import Turnos from "./componentes/Turnos";
 import TablaHorarios from "./componentes/TablaHorarios";
 
@@ -13,20 +13,33 @@ function PrivateRoute({ children }) {
 export default function App() {
   return (
     <Router>
-      <div className="app-container">
-        <Sidebar />
-        <div className="main-content">
-          <Routes>
-            <Route path="/login" element={<Login />} />
-            <Route path="/" element={<PrivateRoute><h1>Bienvenido</h1></PrivateRoute>} />
-            <Route path="/turnos" element={<PrivateRoute><Turnos /></PrivateRoute>} />
-            <Route path="/horarios" element={<PrivateRoute><TablaHorarios /></PrivateRoute>} />
-          </Routes>
-        </div>
-      </div>
+      <Routes>
+        {/* Login sin sidebar */}
+        <Route path="/login" element={<Login />} />
+
+        {/* Páginas protegidas con sidebar */}
+        <Route
+          path="/*"
+          element={
+            <PrivateRoute>
+              <div className="app-container">
+                <Sidebar />
+                <div className="main-content">
+                  <Routes>
+                    <Route path="/" element={<h1>Bienvenido</h1>} />
+                    <Route path="/turnos" element={<Turnos />} />
+                    <Route path="/horarios" element={<TablaHorarios />} />
+                  </Routes>
+                </div>
+              </div>
+            </PrivateRoute>
+          }
+        />
+      </Routes>
     </Router>
   );
 }
+
 
 /*import React, { useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
