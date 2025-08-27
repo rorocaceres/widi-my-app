@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import "./style.css"; 
 
 export default function Login() {
   const navigate = useNavigate();
@@ -20,8 +21,8 @@ export default function Login() {
   };
 
   return (
-    <div className="login-container">
-      <form className="login-form" onSubmit={handleLogin}>
+    <div className="contenedor">
+  <form onSubmit={handleLogin}>
         <h2>Iniciar Sesión</h2>
         {error && <p className="error">{error}</p>}
         <input
@@ -38,7 +39,7 @@ export default function Login() {
           onChange={(e) => setPass(e.target.value)}
           required
         />
-        <button type="submit">Ingresar</button>
+        <input type="submit" value="Ingresar" className="boton" />
       </form>
     </div>
   );
