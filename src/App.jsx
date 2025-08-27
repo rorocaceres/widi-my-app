@@ -1,5 +1,6 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate, Outlet } from "react-router-dom";
+
 import Sidebar from "./componentes/Sidebar";
 import Header from "./componentes/Header";
 import Profile from "./componentes/Profile";
@@ -11,6 +12,22 @@ import Profesores from "./componentes/Profesores";
 import Cursos from "./componentes/Cursos";
 import Contacto from "./componentes/Contacto";
 
+// Layout con Header, Sidebar, Outlet y Profile
+function Layout() {
+  return (
+    <div className="app-layout">
+      <header className="header"><Header /></header>
+
+      <div className="app-content">
+        <aside className="sidebar"><Sidebar /></aside>
+        <main className="main-area"><Outlet /></main>
+        <aside className="profile"><Profile /></aside>
+      </div>
+    </div>
+  );
+}
+
+// PrivateRoute: si no hay sesión, va a Login
 function PrivateRoute({ children }) {
   const loggedIn = localStorage.getItem("loggedIn");
   return loggedIn ? children : <Navigate to="/LoginTemp" />;
@@ -20,39 +37,21 @@ export default function App() {
   return (
     <Router>
       <Routes>
-        {/* Login */}
+        {/* Ruta pública */}
         <Route path="/LoginTemp" element={<LoginTemp />} />
 
-        {/* Layout privado */}
-        <Route
-          path="/*"
-          element={
-            <PrivateRoute>
-              <div className="app-layout">
-                <Header />
+        {/* Layout privado y rutas internas */}
+        <Route path="/" element={<PrivateRoute><Layout /></PrivateRoute>}>
+          <Route index element={<Inicio />} />
+          <Route path="profesores" element={<Profesores />} />
+          <Route path="cursos" element={<Cursos />} />
+          <Route path="turnos" element={<Turnos />} />
+          <Route path="horarios" element={<TablaHorarios />} />
+          <Route path="contacto" element={<Contacto />} />
+        </Route>
 
-                <div className="app-content">
-                  <aside className="sidebar">
-                    <Sidebar />
-                  </aside>
-
-                  <main className="main-area">
-                    <Route path="/" element={<Inicio />} />
-                    <Route path="/profesores" element={<Profesores />} />
-                    <Route path="/cursos" element={<Cursos />} />
-                    <Route path="/turnos" element={<Turnos />} />
-                    <Route path="/horarios" element={<TablaHorarios />} />
-                    <Route path="/contacto" element={<Contacto />} />
-                  </main>
-
-                  <aside className="profile">
-                    <Profile /> {/* sin logout */}
-                  </aside>
-                </div>
-              </div>
-            </PrivateRoute>
-          }
-        />
+        {/* Cualquier otra ruta redirige a login */}
+        <Route path="*" element={<Navigate to="/LoginTemp" replace />} />
       </Routes>
     </Router>
   );
