@@ -7,7 +7,7 @@ export default function Sidebar() {
 
   const handleLogout = () => {
     localStorage.removeItem("loggedIn");
-    navigate("/login");
+    navigate("/LoginTemp");
   };
 
   return (
