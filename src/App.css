@@ -12,57 +12,63 @@ body {
   height: 100vh;
 }
 
+/* HEADER arriba */
+.header {
+  flex-shrink: 0;
+  width: 100%;
+}
+
+/* Contenido principal: sidebar + main + perfil */
 .app-content {
   display: flex;
   flex: 1;
+  min-height: 0;
+  gap: 1rem;
 }
 
+/* Sidebar izquierda */
 .sidebar {
   background-color: #f6eedf;
   width: 200px;
   padding: 1rem;
   flex-shrink: 0;
+  overflow-y: auto;
 }
 
+/* Área central con tabla y perfil */
 .main-area {
   display: flex;
   flex: 1;
+  gap: 1rem;
+  min-width: 0; /* evita overflow */
   padding: 1rem;
-  gap: 1rem;
-}
-
-.page-home,
-.page-profesores {
-  display: flex;
-  flex: 1;
-  gap: 1rem;
 }
 
 /* Contenedor central (tabla) */
-.page-home > .table-container,
-.page-profesores > .curso-section {
-  flex: 2;
+.table-container {
+  flex: 3; /* más espacio que el perfil */
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 100%;
+  padding: 1rem;
 }
 
-/* Perfil a la derecha */
-.profile,
-.perfil-sidebar {
+/* Perfil derecha */
+.profile {
   flex: 1;
+  max-width: 250px;
   background: #fff4f0;
   padding: 1rem;
   border-radius: 12px;
   text-align: center;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-  max-width: 250px;
   height: fit-content;
-  align-self: center;
+  align-self: flex-start;
 }
 
-.profile img,
-.perfil-img {
+/* Imagen perfil */
+.profile img {
   width: 80px;
   height: 80px;
   border-radius: 50%;
@@ -70,6 +76,7 @@ body {
   margin-bottom: 0.5rem;
 }
 
+/* Botón logout */
 .logout {
   background: #1e3a8a;
   color: white;
@@ -77,7 +84,6 @@ body {
   border: none;
   border-radius: 12px;
   font-weight: 500;
-  font-family: 'Poppins', sans-serif;
   cursor: pointer;
   margin-top: 0.8rem;
   box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
@@ -90,11 +96,7 @@ body {
   box-shadow: 0 8px 16px rgba(59, 130, 246, 0.4);
 }
 
-.table-container {
-  width: 100%;
-  padding: 1rem;
-}
-
+/* Tablas */
 table {
   width: 100%;
   border-collapse: collapse;
@@ -115,4 +117,26 @@ td {
   padding: 1rem;
   text-align: center;
   border-top: 1px solid #f0eaea;
+}
+
+/* Responsive: sidebar y perfil abajo */
+@media (max-width: 900px) {
+  .app-content {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    order: 1;
+  }
+
+  .main-area {
+    flex-direction: column;
+  }
+
+  .profile {
+    max-width: 100%;
+    order: 2;
+    margin-top: 1rem;
+  }
 }
