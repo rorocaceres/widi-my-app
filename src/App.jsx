@@ -1,4 +1,5 @@
 import React from "react";
+import './App.css';
 import { BrowserRouter as Router, Routes, Route, Navigate, Outlet } from "react-router-dom";
 
 import Sidebar from "./componentes/Sidebar";
