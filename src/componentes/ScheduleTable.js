@@ -12,9 +12,4 @@ function ScheduleTable() {
 
   return <HorarioTabla columnas={columnas} filas={filas} />;
 }
-
-
-
-
-
 export default ScheduleTable;
