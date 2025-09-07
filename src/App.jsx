@@ -1,17 +1,20 @@
 import React from "react";
-import './App.css';
+import './disenios/App.css';
 import { BrowserRouter as Router, Routes, Route, Navigate, Outlet } from "react-router-dom";
 
 import Sidebar from "./componentes/Sidebar";
 import Header from "./componentes/Header";
-import Profile from "./componentes/Profile";
-import LoginTemp from "./componentes/LoginTemp";
+import Profile from "./pagess/Profile";
+import LoginTemp from "./pagess/LoginTemp";
 import TablaHorarios from "./componentes/TablaHorarios";
 import Turnos from "./componentes/Turnos";
-import Inicio from "./componentes/Inicio";
+import Inicio from "./pagess/Inicio";
 import Profesores from "./componentes/Profesores";
-import Cursos from "./componentes/Cursos";
+import Cursos from "./pagess/Cursos";
 import Contacto from "./componentes/Contacto";
+
+localStorage.removeItem("loggedIn");
+localStorage.removeItem("usuario");
 
 // Layout con Header, Sidebar, Outlet y Profile
 function Layout() {
@@ -38,10 +41,7 @@ export default function App() {
   return (
     <Router>
       <Routes>
-        {/* Ruta pública */}
         <Route path="/LoginTemp" element={<LoginTemp />} />
-
-        {/* Layout privado y rutas internas */}
         <Route path="/" element={<PrivateRoute><Layout /></PrivateRoute>}>
           <Route index element={<Inicio />} />
           <Route path="profesores" element={<Profesores />} />
