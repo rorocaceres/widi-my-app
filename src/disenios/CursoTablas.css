@@ -1,0 +1,19 @@
+.tabla-horarios {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.tabla-horarios th {
+  background-color: #769DE8; /* encabezado: lunes, martes... */
+  color: white;
+  padding: 10px;
+  border: 1px solid #333;
+}
+
+.tabla-horarios td {
+  background-color: #C9D7F5; /* celdas de materias/cursos */
+  padding: 10px;
+  border: 1px solid #333;
+  text-align: center;
+}
