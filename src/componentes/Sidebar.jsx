@@ -9,7 +9,7 @@ import {
   Mail,
   LogOut,
 } from "lucide-react";
-import "./Sidebar.css";
+import "../disenios/Sidebar.css";
 
 export default function Sidebar() {
   const navigate = useNavigate();

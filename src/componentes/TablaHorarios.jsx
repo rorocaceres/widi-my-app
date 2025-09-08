@@ -1,5 +1,5 @@
 import React from "react";
-import "./TablaHorarios.css";
+import "../disenios/TablaHorarios.css";
 
 function TablaHorarios() {
   const columnas = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes"];

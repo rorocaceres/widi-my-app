@@ -1,6 +1,5 @@
 import React from 'react';               // 1. Importamos React para poder usar JSX y crear componentes
-
-import './HorarioTabla.css';             // 2. Importamos el archivo CSS que contiene los estilos de esta tabla
+import '../disenios/HorarioTabla.css';             // 2. Importamos el archivo CSS que contiene los estilos de esta tabla
 
 function HorarioTabla({ columnas, filas }) {  // 3. Definimos el componente funcional que recibe dos props: columnas (array) y filas (array de arrays)
   return (

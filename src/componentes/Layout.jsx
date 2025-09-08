@@ -1,7 +1,7 @@
 // src/componentes/Layout.jsx
 import Sidebar from "./Sidebar";
 import { Outlet } from "react-router-dom";
-import "./Layout.css";
+import "../disenios/Layout.css";
 
 export default function Layout() {
   return (

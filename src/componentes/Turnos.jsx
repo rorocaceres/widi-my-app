@@ -1,5 +1,5 @@
 import React from "react";
-import "./Turnos.css";
+import "../disenios/Turnos.css";
 
 const TurnoTabla = ({ titulo, headers, data }) => (
   <div className="mb-8">
