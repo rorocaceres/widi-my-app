@@ -11,14 +11,19 @@ body{
 }
 
 /* Card */
-.app-layout{
-  max-width:1200px;
-  margin:28px auto;
-  border-radius:12px;
-  overflow:hidden;
-  background:var(--card-bg);
-  box-shadow:var(--shadow)
+
+.app-layout {
+  width: 100%;
+  height: 100vh; /* ocupa toda la altura */
+  margin: 0;
+  border-radius: 0;
+  overflow: hidden;
+  background: var(--card-bg);
+  box-shadow: none; /* opcional, para eliminar el borde de tarjeta */
+  display: flex;
+  flex-direction: column;
 }
+
 
 /* Header */
 .header{
@@ -160,6 +165,16 @@ td{
     .header .title{text-align:left} 
     .table-container{padding:0 6px}
   }
+.app-content {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 220px 1fr 260px;
+  gap: 28px;
+  padding: 28px;
+  align-items: start;
+  height: 100%;
+}
+
 
 /* Animations */
 @keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
