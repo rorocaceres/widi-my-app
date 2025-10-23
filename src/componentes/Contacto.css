@@ -1,0 +1,129 @@
+.contacto-container {
+  padding: 40px;
+  background-color: #fffaf9;
+  border-radius: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.contacto-titulo {
+  text-align: center;
+  color: #0c2d57;
+  font-size: 2.2rem;
+  font-weight: bold;
+  margin-bottom: 40px;
+}
+
+.contacto-content {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  justify-content: center;
+}
+
+.contacto-info {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  flex: 1;
+  min-width: 300px;
+}
+
+.info-card {
+  background-color: #f9f9ff;
+  border: 2px solid #dce6f9;
+  border-radius: 16px;
+  padding: 20px;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.info-card:hover {
+  background-color: #edf3ff;
+  transform: translateY(-5px);
+}
+
+.info-card h3 {
+  color: #0c2d57;
+  font-size: 1rem;
+  margin: 10px 0 5px;
+}
+
+.info-card p {
+  color: #333;
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+.info-icon {
+  color: #1b4db9;
+  width: 32px;
+  height: 32px;
+}
+
+.contacto-form {
+  flex: 1;
+  min-width: 350px;
+  background-color: #e7f0ff;
+  padding: 30px;
+  border-radius: 16px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.contacto-form form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.contacto-form input,
+.contacto-form textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #c7d4f5;
+  border-radius: 8px;
+  font-size: 1rem;
+  outline: none;
+}
+
+.contacto-form input:focus,
+.contacto-form textarea:focus {
+  border-color: #1b4db9;
+  box-shadow: 0 0 6px rgba(27, 77, 185, 0.2);
+}
+
+.contacto-form button {
+  background-color: #1b4db9;
+  color: white;
+  border: none;
+  padding: 12px;
+  font-size: 1rem;
+  font-weight: bold;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.contacto-form button:hover {
+  background-color: #163c91;
+}
+/* --- Enlaces clickeables en las tarjetas de contacto --- */
+.link-card a {
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: 0.3s ease;
+}
+
+.link-card a:hover .info-icon {
+  color: #ff5e7e; /* color suave tipo rosa */
+  transform: scale(1.1);
+}
+
+.link-card a:hover h3,
+.link-card a:hover p {
+  color: #ff5e7e;
+}
