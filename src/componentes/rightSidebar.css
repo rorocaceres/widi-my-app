@@ -1,0 +1,85 @@
+.right-sidebar {
+  background: var(--beige);
+  padding: 18px;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.03);
+}
+
+.profile-card {
+  background: var(--card-bg);
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: var(--shadow);
+  text-align: center;
+}
+
+.profile-photo {
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 12px;
+  border: 2px solid var(--accent-blue);
+}
+
+h3 {
+  color: #233047;
+  font-size: 18px;
+  margin: 8px 0;
+}
+
+p {
+  color: #555;
+  font-size: 14px;
+  margin-bottom: 12px;
+}
+
+.edit-btn {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 8px;
+  background: var(--accent-blue);
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.edit-btn:hover {
+  background: #1a2d6a;
+}
+
+.edit-form input[type="text"],
+.edit-form input[type="email"],
+.edit-form input[type="file"] {
+  width: 90%;
+  padding: 8px 10px;
+  margin: 8px 0;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+.form-buttons {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 10px;
+}
+
+.form-buttons button:first-child {
+  background: var(--accent-blue);
+  color: white;
+}
+
+.form-buttons button:first-child:hover {
+  background: #1a2d6a;
+}
+
+.form-buttons button:last-child {
+  background: #ccc;
+  color: #333;
+}
+
+.form-buttons button:last-child:hover {
+  background: #aaa;
+}
