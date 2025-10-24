@@ -4,7 +4,8 @@ import { BrowserRouter as Router, Routes, Route, Navigate, Outlet } from "react-
 
 import Sidebar from "./componentes/Sidebar";
 import Header from "./componentes/Header";
-import LoginTemp from "./pagess/LoginTemp";
+import Login from "./componentes/Login";
+import Register from "./pagess/Register";
 import TablaHorarios from "./componentes/TablaHorarios";
 import Turnos from "./componentes/Turnos";
 import Inicio from "./pagess/Inicio";
@@ -28,17 +29,20 @@ function Layout() {
   );
 }
 
-// PrivateRoute: si no hay sesión, va a Login
+// PrivateRoute: si no hay sesión, va a /login
 function PrivateRoute({ children }) {
   const { loggedIn } = useAuth(); 
-  return loggedIn ? children : <Navigate to="/LoginTemp" />;
+  return loggedIn ? children : <Navigate to="/login" />;
 }
 
 export default function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/LoginTemp" element={<LoginTemp />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+
+        {/* Rutas protegidas */}
         <Route path="/" element={<PrivateRoute><Layout /></PrivateRoute>}>
           <Route index element={<Inicio />} />
           <Route path="profesores" element={<Profesores />} />
@@ -47,7 +51,9 @@ export default function App() {
           <Route path="horarios" element={<TablaHorarios />} />
           <Route path="contacto" element={<Contacto />} />
         </Route>
-        <Route path="*" element={<Navigate to="/LoginTemp" replace />} />
+
+        {/* Redirección por defecto */}
+        <Route path="*" element={<Navigate to="/login" replace />} />
       </Routes>
     </Router>
   );
