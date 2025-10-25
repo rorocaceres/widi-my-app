@@ -1,17 +1,18 @@
 import React, { useState } from "react";
-import '../disenios/Login.css';
-import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
-import { auth, db } from "../Firebase/client";
-import { doc, setDoc } from "firebase/firestore";
+import "../disenios/Login.css";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../Firebase/client";
 import { useNavigate } from "react-router-dom";
+import { getFirestore, doc, setDoc } from "firebase/firestore"; // ✅ Import Firestore
 
 function Register() {
-  const [nombre, setNombre] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [nombre, setNombre] = useState(""); // ✅ Nombre del profesor
   const [error, setError] = useState("");
   const navigate = useNavigate();
+  const db = getFirestore(); // ✅ Inicializamos Firestore
 
   const handleRegister = async (e) => {
     e.preventDefault();
@@ -22,15 +23,16 @@ function Register() {
     }
 
     try {
+      // ✅ Crear usuario en Firebase Authentication
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
 
-      await updateProfile(user, { displayName: nombre });
-
+      // ✅ Guardar en Firestore dentro de 'profesores'
       await setDoc(doc(db, "profesores", user.uid), {
+        uid: user.uid,
         nombre: nombre,
-        email: user.email,
-        rol: "profesor",
+        email: email,
+        rol: "profesor", // lo marcamos para distinguirlo más adelante
       });
 
       navigate("/Inicio");
@@ -56,7 +58,8 @@ function Register() {
           <h1 className="login-subtitle">Registrate en EPET 20 - horario de profesores</h1>
 
           <form onSubmit={handleRegister}>
-            <label htmlFor="nombre">Nombre completo</label>
+            {/* ✅ Nuevo campo nombre */}
+            <label htmlFor="nombre">Nombre y apellido</label>
             <input
               type="text"
               id="nombre"
@@ -103,20 +106,11 @@ function Register() {
             </button>
           </form>
 
-          <div className="divider">o registrate con</div>
-
-          <div className="social-buttons">
-            <button className="social-btn fb">f</button>
-            <button className="social-btn google">G</button>
-            <button className="social-btn apple"></button>
-          </div>
-
           <p className="register-text">
             ¿Ya tenés cuenta? <a href="/LoginTemp">Iniciá sesión</a>
           </p>
         </div>
       </div>
-
       <div className="login-right"></div>
     </div>
   );
