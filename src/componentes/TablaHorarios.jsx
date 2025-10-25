@@ -1,38 +1,97 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { collection, getDocs, query, where } from "firebase/firestore";
+import { db } from "../Firebase/client";
+import { useAuth } from "../context/AuthContext";
 import "../disenios/TablaHorarios.css";
 
 function TablaHorarios() {
-  const columnas = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes"];
-  const filas = [
-    [
-      <><strong>18:00</strong><br />Programación Web<br />Wiedermann</>,
-      "", "", "", ""
-    ],
-    [
-      <><strong>19:30 - 20:50</strong><br />Ética<br />Monzano</>,
-      "", "", "", ""
-    ],
-    [
-      <><strong>21:00 - 22:20</strong><br />Gestión de Calidad<br />Zeballos</>,
-      "", "", "", ""
-    ],
-  ];
+  const { user } = useAuth(); // usuario logueado
+  const [filas, setFilas] = useState([]);
+  const [cargando, setCargando] = useState(true);
+  const [curso, setCurso] = useState(null);
+
+  useEffect(() => {
+    const obtenerHorariosPreceptor = async () => {
+      try {
+        if (!user?.email) return;
+
+        // Buscar preceptor actual
+        const preceptorSnap = await getDocs(
+          query(collection(db, "preceptores"), where("email", "==", user.email))
+        );
+
+        if (preceptorSnap.empty) {
+          console.warn("No se encontró el preceptor con ese email.");
+          setCargando(false);
+          return;
+        }
+
+        const preceptorData = preceptorSnap.docs[0].data();
+        setCurso(preceptorData.curso);
+
+        // Buscar horarios correspondientes a ese curso
+        const horariosSnap = await getDocs(
+          query(collection(db, "horarios"), where("curso", "==", preceptorData.curso))
+        );
+
+        const horarios = horariosSnap.docs.map((doc) => doc.data());
+        setFilas(horarios);
+      } catch (error) {
+        console.error("Error al obtener horarios:", error);
+      } finally {
+        setCargando(false);
+      }
+    };
+
+    obtenerHorariosPreceptor();
+  }, [user]);
+
+  if (cargando) return <p>Cargando horarios...</p>;
+  if (!curso) return <p>No se encontró información del curso asignado.</p>;
+
+  const dias = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes"];
+
+  // Agrupar por día y ordenar por hora
+  const horariosPorDia = dias.map((dia) => ({
+    dia,
+    clases: filas
+      .filter((f) => f.dia === dia)
+      .sort((a, b) => a.horaInicio.localeCompare(b.horaInicio)),
+  }));
 
   return (
     <div className="table-container">
+      <h2>Horario semanal - {curso}</h2>
+
       <table className="tabla-horarios">
-        <caption>Horario Semanal</caption>
         <thead>
           <tr>
-            {columnas.map((col, i) => <th key={i}>{col}</th>)}
+            {dias.map((d, i) => (
+              <th key={i}>{d}</th>
+            ))}
           </tr>
         </thead>
         <tbody>
-          {filas.map((fila, i) => (
-            <tr key={i}>
-              {fila.map((celda, j) => <td key={j}>{celda}</td>)}
-            </tr>
-          ))}
+          <tr>
+            {horariosPorDia.map(({ dia, clases }) => (
+              <td key={dia} className="align-top">
+                {clases.length > 0 ? (
+                  clases.map((c, i) => (
+                    <div key={i} className="bloque-horario">
+                      {/* Primero la materia */}
+                      <strong>{c.materia}</strong><br />
+                      {/* Luego el horario */}
+                      {c.horaInicio} - {c.horaFin}<br />
+                      {/* Por último el profesor */}
+                      <span className="profesor">{c.profesor}</span>
+                    </div>
+                  ))
+                ) : (
+                  <span className="vacio">—</span>
+                )}
+              </td>
+            ))}
+          </tr>
         </tbody>
       </table>
     </div>
@@ -40,54 +99,3 @@ function TablaHorarios() {
 }
 
 export default TablaHorarios;
-
-// 7. Exportamos el componente para poder usarlo en otras partes de la app
-/*import React from 'react';
-import './TablaHorarios.css';
-
-function TablaHorarios(props) {
-  return (
-    <div className="table-container">
-      <table className="tabla-horarios">
-        <caption>Horario Semanal</caption>
-        <thead>
-          <tr>
-            <th scope="col">Lunes</th>
-            <th scope="col">Martes</th>
-            <th scope="col">Miércoles</th>
-            <th scope="col">Jueves</th>
-            <th scope="col">Viernes</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>
-              <strong>18:00</strong><br />
-              Programación Web<br />
-              Wiedermann
-            </td>
-            <td></td><td></td><td></td><td></td>
-          </tr>
-          <tr>
-            <td>
-              <strong>19:30 - 20:50</strong><br />
-              Ética<br />
-              Monzano
-            </td>
-            <td></td><td></td><td></td><td></td>
-          </tr>
-          <tr>
-            <td>
-              <strong>21:00 - 22:20</strong><br />
-              Gestión de Calidad<br />
-              Zeballos
-            </td>
-            <td></td><td></td><td></td><td></td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  );
-}
-
-export default TablaHorarios;*/
