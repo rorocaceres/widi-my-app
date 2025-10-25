@@ -1,7 +1,8 @@
 .tabla-horarios {
   width: 100%;
   background: #fff;
-  border-collapse: collapse;
+  border-collapse: separate; /* permite espaciar visualmente */
+  border-spacing: 0;
   border-radius: 12px;
   overflow: hidden;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
@@ -11,12 +12,46 @@
   background-color: #fbdcdc;
   color: #333;
   font-weight: 600;
-  padding: 1rem;
+  padding: 1.2rem;
   text-align: center;
 }
 
 .tabla-horarios td {
-  padding: 1rem;
-  border-top: 1px solid #f0eaea;
+  padding: 1.2rem;
+  border-top: 1px solid #e5dddd;
   text-align: center;
+}
+
+/* Alternar color de filas */
+.tabla-horarios tr:nth-child(even) td {
+  background-color: #f9f9f9;
+}
+
+.tabla-horarios tr:nth-child(odd) td {
+  background-color: #ffffff;
+}
+
+/* 🎯 Highlight suave al pasar el mouse */
+.tabla-horarios tr:hover td {
+  background-color: #f3f3f3;
+  transition: background-color 0.25s ease;
+}
+
+/* ✅ mejoras visuales */
+.table-container {
+  padding: 1rem;
+  text-align: center;
+}
+
+select {
+  margin-bottom: 1rem;
+  padding: 0.4rem 0.6rem;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  background: #fff;
+}
+
+small {
+  color: #666;
+  font-size: 0.85rem;
 }
