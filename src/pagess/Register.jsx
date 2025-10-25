@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import '../disenios/Login.css';
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../Firebase/client";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { auth, db } from "../Firebase/client";
+import { doc, setDoc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 
 function Register() {
+  const [nombre, setNombre] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -20,7 +22,17 @@ function Register() {
     }
 
     try {
-      await createUserWithEmailAndPassword(auth, email, password);
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
+
+      await updateProfile(user, { displayName: nombre });
+
+      await setDoc(doc(db, "profesores", user.uid), {
+        nombre: nombre,
+        email: user.email,
+        rol: "profesor",
+      });
+
       navigate("/Inicio");
     } catch (err) {
       console.error(err);
@@ -44,6 +56,16 @@ function Register() {
           <h1 className="login-subtitle">Registrate en EPET 20 - horario de profesores</h1>
 
           <form onSubmit={handleRegister}>
+            <label htmlFor="nombre">Nombre completo</label>
+            <input
+              type="text"
+              id="nombre"
+              placeholder="Ej: Calderón Erick"
+              value={nombre}
+              onChange={(e) => setNombre(e.target.value)}
+              required
+            />
+
             <label htmlFor="email">E-mail</label>
             <input
               type="email"
