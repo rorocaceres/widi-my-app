@@ -1,18 +1,33 @@
 import React, { useState } from "react";
 import "../disenios/Login.css";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth } from "../Firebase/client";
 import { useNavigate } from "react-router-dom";
-import { getFirestore, doc, setDoc } from "firebase/firestore"; // ✅ Import Firestore
+import { getFirestore, doc, setDoc } from "firebase/firestore";
 
 function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [nombre, setNombre] = useState(""); // ✅ Nombre del profesor
+  const [nombre, setNombre] = useState("");
+  const [rol, setRol] = useState("profesor");
+  const [turno, setTurno] = useState("");
+  const [cursos, setCursos] = useState([""]); // ✅ Array de cursos (solo para preceptores)
   const [error, setError] = useState("");
   const navigate = useNavigate();
-  const db = getFirestore(); // ✅ Inicializamos Firestore
+  const db = getFirestore();
+
+  // ✅ Agregar o eliminar curso
+  const handleAddCurso = () => setCursos([...cursos, ""]);
+  const handleRemoveCurso = (index) => {
+    const nuevos = cursos.filter((_, i) => i !== index);
+    setCursos(nuevos);
+  };
+  const handleCursoChange = (index, value) => {
+    const nuevos = [...cursos];
+    nuevos[index] = value;
+    setCursos(nuevos);
+  };
 
   const handleRegister = async (e) => {
     e.preventDefault();
@@ -23,16 +38,20 @@ function Register() {
     }
 
     try {
-      // ✅ Crear usuario en Firebase Authentication
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
 
-      // ✅ Guardar en Firestore dentro de 'profesores'
-      await setDoc(doc(db, "profesores", user.uid), {
+      await updateProfile(user, { displayName: nombre });
+
+      const coleccion = rol === "preceptor" ? "preceptores" : "profesores";
+
+      await setDoc(doc(db, coleccion, user.uid), {
         uid: user.uid,
-        nombre: nombre,
-        email: email,
-        rol: "profesor", // lo marcamos para distinguirlo más adelante
+        nombre,
+        email,
+        rol,
+        turno: rol === "preceptor" ? turno : null,
+        cursos: rol === "preceptor" ? cursos.filter((c) => c.trim() !== "") : null,
       });
 
       navigate("/Inicio");
@@ -58,12 +77,11 @@ function Register() {
           <h1 className="login-subtitle">Registrate en EPET 20 - horario de profesores</h1>
 
           <form onSubmit={handleRegister}>
-            {/* ✅ Nuevo campo nombre */}
             <label htmlFor="nombre">Nombre y apellido</label>
             <input
               type="text"
               id="nombre"
-              placeholder="Ej: Calderón Erick"
+              placeholder="Ej: Antonella Blasco"
               value={nombre}
               onChange={(e) => setNombre(e.target.value)}
               required
@@ -98,6 +116,53 @@ function Register() {
               onChange={(e) => setConfirmPassword(e.target.value)}
               required
             />
+
+            <label htmlFor="rol">Rol</label>
+            <select id="rol" value={rol} onChange={(e) => setRol(e.target.value)}>
+              <option value="profesor">Profesor</option>
+              <option value="preceptor">Preceptor</option>
+            </select>
+
+            {/* ✅ Si el rol es preceptor, mostramos campos extras */}
+            {rol === "preceptor" && (
+              <>
+                <label htmlFor="turno">Turno</label>
+                <select id="turno" value={turno} onChange={(e) => setTurno(e.target.value)} required>
+                  <option value="">Seleccionar turno</option>
+                  <option value="mañana">Mañana</option>
+                  <option value="tarde">Tarde</option>
+                  <option value="noche">Noche</option>
+                </select>
+
+                <label>Cursos a cargo</label>
+                {cursos.map((curso, index) => (
+                  <div key={index} className="curso-input">
+                    <input
+                      type="text"
+                      placeholder={`Curso ${index + 1} (Ej: 6to 2da)`}
+                      value={curso}
+                      onChange={(e) => handleCursoChange(index, e.target.value)}
+                    />
+                    {index > 0 && (
+                      <button
+                        type="button"
+                        className="remove-btn"
+                        onClick={() => handleRemoveCurso(index)}
+                      >
+                        ❌
+                      </button>
+                    )}
+                  </div>
+                ))}
+                <button
+                  type="button"
+                  className="add-curso-btn"
+                  onClick={handleAddCurso}
+                >
+                  ➕ Agregar otro curso
+                </button>
+              </>
+            )}
 
             {error && <p className="error">{error}</p>}
 
