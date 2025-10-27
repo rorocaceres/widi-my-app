@@ -5,6 +5,7 @@
   border-spacing: 0;
   border-radius: 12px;
   overflow: hidden;
+  padding-bottom: 10px;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
 }
 
@@ -12,12 +13,12 @@
   background-color: #fbdcdc;
   color: #333;
   font-weight: 600;
-  padding: 1.2rem;
+  padding-bottom: 10px;
   text-align: center;
 }
 
 .tabla-horarios td {
-  padding: 1.2rem;
+  padding-bottom: 10px;
   border-top: 1px solid #e5dddd;
   text-align: center;
 }
@@ -39,7 +40,7 @@
 
 /* ✅ mejoras visuales */
 .table-container {
-  padding: 1rem;
+  padding-bottom: 10px;
   text-align: center;
 }
 
@@ -54,4 +55,50 @@ select {
 small {
   color: #666;
   font-size: 0.85rem;
+}
+
+.bloque-horario {
+  padding-bottom: 25px;
+}
+
+/* 🧩 Nuevo: estilos para el título y separación por curso */
+.curso-section {
+  margin-bottom: 50px;
+}
+
+.curso-header {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.titulo-curso {
+  color: #1e3a8a;
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.separador-curso {
+  border: none;
+  height: 2px;
+  background-color: #f3e6e6;
+  width: 60%;
+  margin: 0 auto 20px;
+}
+
+.btn-presentismo {
+  background-color: #265a9a;
+  color: white;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  margin-top: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-presentismo:hover {
+  background-color: #1e3a8a;
+  transform: translateY(-2px);
 }
