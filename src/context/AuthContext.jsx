@@ -1,33 +1,50 @@
 import { createContext, useContext, useState, useEffect } from "react";
 import { auth } from "../Firebase/client";
 import { onAuthStateChanged } from "firebase/auth";
+import { getFirestore, doc, getDoc } from "firebase/firestore"; // ✅ agregado
 
-// ✅ Creamos el contexto de autenticación
 const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
   const [loggedIn, setLoggedIn] = useState(false);
-  const [user, setUser] = useState(null); // guarda los datos del usuario logueado
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
-    // ✅ Escucha el estado de autenticación en tiempo real
-    const unsubscribe = onAuthStateChanged(auth, (usuario) => {
-      setLoggedIn(!!usuario);
-      setUser(usuario); // guardamos el usuario actual
+    const unsubscribe = onAuthStateChanged(auth, async (usuario) => {
+      if (usuario) {
+        setLoggedIn(true);
+
+        // ✅ buscamos en Firestore si es profesor o preceptor
+        const db = getFirestore();
+        let rol = null;
+
+        const profesorDoc = await getDoc(doc(db, "profesores", usuario.uid));
+        if (profesorDoc.exists()) {
+          rol = "profesor";
+        } else {
+          const preceptorDoc = await getDoc(doc(db, "preceptores", usuario.uid));
+          if (preceptorDoc.exists()) {
+            rol = "preceptor";
+          }
+        }
+
+        setUser({ ...usuario, rol }); // ✅ agregamos el rol
+      } else {
+        setLoggedIn(false);
+        setUser(null);
+      }
     });
 
     return () => unsubscribe();
   }, []);
 
   return (
-    // ✅ Exportamos el contexto con loggedIn y user
     <AuthContext.Provider value={{ loggedIn, user }}>
       {children}
     </AuthContext.Provider>
   );
 }
 
-// ✅ Hook personalizado para usar la info del usuario logueado
 export function useAuth() {
   return useContext(AuthContext);
 }
