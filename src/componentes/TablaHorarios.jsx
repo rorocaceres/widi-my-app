@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { collection, getDocs, query, where, addDoc } from "firebase/firestore";
-import { db } from "../Firebase/client";
+import { db } from "../firebase/client";
 import { useAuth } from "../context/AuthContext";
 import "../disenios/TablaHorarios.css";
 

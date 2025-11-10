@@ -63,7 +63,7 @@ export default function Cursos() {
     );
   }
 
-  // Filtrado de items segun rol + turno seleccionado
+  // Filtrado de items segun rol y turno seleccionado
   const itemsFiltrados = items.filter(item => {
     const esPreceptor = usuarioLogueado?.rol === 'preceptor';
     const esProfesor  = usuarioLogueado?.rol === 'profesor';

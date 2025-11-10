@@ -13,6 +13,7 @@ export default function CursosHorariosTabla({ items, allowActions, onAccion }) {
     items.forEach(item => {
       // Si el item tiene la propiedad 'diasSeparados' significa que viene de los datos de preceptor
       if (item.diasSeparados) {
+        
         item.diasSeparados.forEach(dia => {
           filas.push({ ...item, dia: dia });
         });
