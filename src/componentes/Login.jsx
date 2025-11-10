@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./../disenios/Login.css";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../Firebase/client";
+import { auth } from "../firebase/client";
 import { useNavigate } from "react-router-dom";
 
 function Login() {
