@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, useEffect } from "react";
-import { auth } from "../Firebase/client";
+import { auth } from "../firebase/client";
 import { onAuthStateChanged } from "firebase/auth";
 import { getFirestore, doc, getDoc } from "firebase/firestore"; // ✅ agregado
 
@@ -48,3 +48,5 @@ export function AuthProvider({ children }) {
 export function useAuth() {
   return useContext(AuthContext);
 }
+
+
