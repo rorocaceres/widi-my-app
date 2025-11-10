@@ -14,6 +14,7 @@ import Cursos from "./pagess/Cursos";
 import Contacto from "./componentes/Contacto";
 import { useAuth } from "./context/AuthContext"; 
 import RightSidebar from "./componentes/rightSidebar";
+import Alumnos from "./pagess/Alumnos";
 
 // Layout con Header, Sidebar, Main y RightSidebar
 function Layout() {
@@ -50,6 +51,7 @@ export default function App() {
           <Route path="turnos" element={<Turnos />} />
           <Route path="horarios" element={<TablaHorarios />} />
           <Route path="contacto" element={<Contacto />} />
+          <Route path="alumnos" element={<Alumnos />} />
         </Route>
 
         {/* Redirección por defecto */}
