@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "../disenios/Login.css";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
-import { auth } from "../Firebase/client";
+import { auth } from "../firebase/client";
 import { useNavigate } from "react-router-dom";
 import { getFirestore, doc, setDoc } from "firebase/firestore";
 
@@ -13,11 +13,13 @@ function Register() {
   const [rol, setRol] = useState("profesor");
   const [turno, setTurno] = useState("");
   const [cursos, setCursos] = useState([""]); // ✅ Array de cursos (solo para preceptores)
+  const [anio, setAnio] = useState(""); // 🟩 Campos para alumno
+  const [division, setDivision] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
   const db = getFirestore();
 
-  // ✅ Agregar o eliminar curso
+  // ✅ Agregar o eliminar curso (preceptores)
   const handleAddCurso = () => setCursos([...cursos, ""]);
   const handleRemoveCurso = (index) => {
     const nuevos = cursos.filter((_, i) => i !== index);
@@ -40,19 +42,39 @@ function Register() {
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
-
       await updateProfile(user, { displayName: nombre });
 
-      const coleccion = rol === "preceptor" ? "preceptores" : "profesores";
+      // 🟩 Mantiene lógica original
+      let coleccion = "profesores";
+      if (rol === "preceptor") coleccion = "preceptores";
 
-      await setDoc(doc(db, coleccion, user.uid), {
+      // 🟩 Si es alumno, usar su propia colección
+      if (rol === "alumno") {
+        coleccion = "alumnos";
+      }
+
+      // 🟩 Datos base para todos
+      let data = {
         uid: user.uid,
         nombre,
         email,
         rol,
-        turno: rol === "preceptor" ? turno : null,
-        cursos: rol === "preceptor" ? cursos.filter((c) => c.trim() !== "") : null,
-      });
+      };
+
+      // 🟨 Solo si es preceptor, mantener lo que ya hacía tu código
+      if (rol === "preceptor") {
+        data.turno = turno;
+        data.cursos = cursos.filter((c) => c.trim() !== "");
+      }
+
+      // 🟩 Solo si es alumno, agregar nuevos campos
+      if (rol === "alumno") {
+        data.anio = anio;
+        data.division = division;
+        data.turno = turno;
+      }
+
+      await setDoc(doc(db, coleccion, user.uid), data);
 
       navigate("/Inicio");
     } catch (err) {
@@ -121,9 +143,10 @@ function Register() {
             <select id="rol" value={rol} onChange={(e) => setRol(e.target.value)}>
               <option value="profesor">Profesor</option>
               <option value="preceptor">Preceptor</option>
+              <option value="alumno">Alumno</option> {/* 🟩 agregado */}
             </select>
 
-            {/* ✅ Si el rol es preceptor, mostramos campos extras */}
+            {/* 🟨 Campos extra solo para preceptores */}
             {rol === "preceptor" && (
               <>
                 <label htmlFor="turno">Turno</label>
@@ -161,6 +184,40 @@ function Register() {
                 >
                   ➕ Agregar otro curso
                 </button>
+              </>
+            )}
+
+            {/* 🟩 Campos nuevos solo para alumnos */}
+            {rol === "alumno" && (
+              <>
+                <label htmlFor="anio">Año</label>
+                <select id="anio" value={anio} onChange={(e) => setAnio(e.target.value)} required>
+                  <option value="">Seleccionar año</option>
+                  <option value="1°">1°</option>
+                  <option value="2°">2°</option>
+                  <option value="3°">3°</option>
+                  <option value="4°">4°</option>
+                  <option value="5°">5°</option>
+                  <option value="6°">6°</option>
+                </select>
+
+                <label htmlFor="division">División</label>
+                <input
+                  type="text"
+                  id="division"
+                  placeholder="Ej: 2da"
+                  value={division}
+                  onChange={(e) => setDivision(e.target.value)}
+                  required
+                />
+
+                <label htmlFor="turno">Turno</label>
+                <select id="turno" value={turno} onChange={(e) => setTurno(e.target.value)} required>
+                  <option value="">Seleccionar turno</option>
+                  <option value="mañana">Mañana</option>
+                  <option value="tarde">Tarde</option>
+                  <option value="noche">Noche</option>
+                </select>
               </>
             )}
 
