@@ -13,7 +13,7 @@ function Register() {
   const [rol, setRol] = useState("profesor");
   const [turno, setTurno] = useState("");
   const [cursos, setCursos] = useState([""]); // ✅ Array de cursos (solo para preceptores)
-  const [anio, setAnio] = useState(""); // 🟩 Campos para alumno
+  const [anio, setAnio] = useState("");
   const [division, setDivision] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
@@ -44,16 +44,14 @@ function Register() {
       const user = userCredential.user;
       await updateProfile(user, { displayName: nombre });
 
-      // 🟩 Mantiene lógica original
       let coleccion = "profesores";
       if (rol === "preceptor") coleccion = "preceptores";
 
-      // 🟩 Si es alumno, usar su propia colección
       if (rol === "alumno") {
         coleccion = "alumnos";
       }
 
-      // 🟩 Datos base para todos
+      // Datos base para todos
       let data = {
         uid: user.uid,
         nombre,
@@ -61,17 +59,18 @@ function Register() {
         rol,
       };
 
-      // 🟨 Solo si es preceptor, mantener lo que ya hacía tu código
+      // Solo si es preceptor, mantener lo que ya hacía tu código
       if (rol === "preceptor") {
         data.turno = turno;
         data.cursos = cursos.filter((c) => c.trim() !== "");
       }
 
-      // 🟩 Solo si es alumno, agregar nuevos campos
+      //  Solo si es alumno, agregar nuevos campos
       if (rol === "alumno") {
         data.anio = anio;
         data.division = division;
         data.turno = turno;
+        data.curso = `${anio} ${division}`; 
       }
 
       await setDoc(doc(db, coleccion, user.uid), data);
@@ -193,12 +192,12 @@ function Register() {
                 <label htmlFor="anio">Año</label>
                 <select id="anio" value={anio} onChange={(e) => setAnio(e.target.value)} required>
                   <option value="">Seleccionar año</option>
-                  <option value="1°">1°</option>
-                  <option value="2°">2°</option>
-                  <option value="3°">3°</option>
-                  <option value="4°">4°</option>
-                  <option value="5°">5°</option>
-                  <option value="6°">6°</option>
+                  <option value="1to">1to</option>
+                  <option value="2to">2to</option>
+                  <option value="3to">3to</option>
+                  <option value="4to">4to</option>
+                  <option value="5to">5to</option>
+                  <option value="6to">6to</option>
                 </select>
 
                 <label htmlFor="division">División</label>
