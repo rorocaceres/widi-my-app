@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "../disenios/Login.css";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
-import { auth } from "../Firebase/client";
+import { auth } from "../firebase/client";
 import { useNavigate } from "react-router-dom";
 import { getFirestore, doc, setDoc } from "firebase/firestore";
 
@@ -123,7 +123,6 @@ function Register() {
               <option value="preceptor">Preceptor</option>
             </select>
 
-            {/* ✅ Si el rol es preceptor, mostramos campos extras */}
             {rol === "preceptor" && (
               <>
                 <label htmlFor="turno">Turno</label>
@@ -159,7 +158,7 @@ function Register() {
                   className="add-curso-btn"
                   onClick={handleAddCurso}
                 >
-                  ➕ Agregar otro curso
+                  + Agregar otro curso
                 </button>
               </>
             )}
