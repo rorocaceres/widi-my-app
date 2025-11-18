@@ -1,0 +1,69 @@
+/* ------------------------------
+   CONTENEDOR PRINCIPAL
+-------------------------------- */
+.alumnos-horarios-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Título del curso */
+.alumnos-horarios-titulo {
+  text-align: center;
+  font-size: 1.7rem;
+  font-weight: 700;
+  color: #5e3fa3; /* violeta suave */
+  margin-bottom: 20px;
+}
+
+/* ------------------------------
+   TABLA EN COLUMNAS
+-------------------------------- */
+.alumnos-horarios-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 12px;
+}
+
+/* ------------------------------
+   ENCABEZADOS DE DÍAS
+-------------------------------- */
+.alumnos-dia-header {
+  background: #c49fec; /* violeta MUY clarito */
+  padding: 12px;
+  text-align: center;
+  font-weight: 600;
+  font-size: 1.1rem;
+  border-radius: 10px;
+  color: #4a2a8a;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.05);
+}
+
+/* ------------------------------
+   CELDAS DE HORARIOS
+-------------------------------- */
+.alumnos-dia-columna {
+  background: #ffffff;
+  padding: 10px;
+  border-radius: 10px;
+  min-height: 220px;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.05);
+}
+
+.celda-horario {
+  background: #ddeafe; /* azul clarito que combina con violeta */
+  padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  text-align: center;
+  font-size: 0.9rem;
+  color: #1f3c73; /* azul más oscuro */
+  box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+}
+
+/* Efecto hover */
+.celda-horario:hover {
+  background: #cddfff;
+  transform: translateY(-3px);
+  transition: 0.2s ease;
+}
